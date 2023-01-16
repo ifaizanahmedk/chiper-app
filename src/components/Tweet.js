@@ -8,8 +8,11 @@ import {
 	TiHeartFullOutline,
 } from "react-icons/ti";
 import { handleToggleTweet } from "../actions/tweets";
+import { Link, useNavigate } from "react-router-dom";
 
 const Tweet = (props) => {
+	const navigate = useNavigate();
+
 	const handleLike = (e) => {
 		e.preventDefault();
 
@@ -27,18 +30,27 @@ const Tweet = (props) => {
 	const toParent = (e, id) => {
 		e.preventDefault();
 
-		// TODO: Redirect to parent Tweet
+		navigate(`/tweet/${id}`);
 	};
 
 	if (props.tweet === null) {
-		return <p>This tweet doesn't exists.</p>;
+		return <p>This tweet doesn't exist.</p>;
 	}
 
-	const { name, avatar, timestamp, text, hasLiked, likes, replies, parent } =
-		props.tweet;
+	const {
+		id,
+		name,
+		avatar,
+		timestamp,
+		text,
+		hasLiked,
+		likes,
+		replies,
+		parent,
+	} = props.tweet;
 
 	return (
-		<div className="tweet">
+		<Link to={`/tweet/${id}`} className="tweet">
 			<img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
 			<div className="tweet-info">
 				<div>
@@ -69,7 +81,7 @@ const Tweet = (props) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 
